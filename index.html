@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/ico" href="https://static.virtuagym.com/v29521299/images/favicon-0.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap">
+  <link rel="stylesheet" href="main.css">
+
+  <title>Enterprise BI Testing</title>
+</head>
+<body>
+  <nav>
+    <div class="right">
+      <img src="https://static.virtuagym.com/v29522/thumb/clubheaderlogo/m/8c342b41483c69a7a2e92243051ae3da4770.png" alt="Virtuagym logo" title="thanks for testing!">
+    </div>
+    <div class="left">
+      <img id="one" src="https://static.virtuagym.com/v29521298/images/app_icons/app-overview.png" height="44" width="44">
+      <h1>Virtuagym </h1>
+      <img id="two"src="https://static.virtuagym.com/v29521298/images/app_icons/settings.png">
+    </div>
+  </nav>
+  <div class="row">
+    <ul>
+      <li>
+        <a href="index.html"><span>Enterprise Overview</span</a>
+      </li>
+      <li>
+        <a href="location_comparison.html"><span>Club Comparison</span></a>
+      </li>
+      <li>
+        <a href="Benchmarking.html"><span>Benchmarking</span></a>
+      </li>
+    </ul>
+  </div>
+  <div class="filter-container">
+    <form>
+      <label for="superClub">Select Super Club: </label>
+      <select name="superClub" id="superclubSelection">
+        <option value="">--</option>
+        <option value="7811">LIJFSTIJL Superclub</option>
+      </select>
+    </form>
+    <form>
+      <label for="subClub">Select Location: </label>
+      <select name="subClub" id="subclubSelection">
+        <option value="">--</option>
+        <option value="Bodytec Studio">Bodytec Studio</option>
+        <option value="Optimum Change">Optimum Change</option>
+        <option value="Source PT">Source PT</option>
+        <option value="LIJFSTIJL Centrum Hoofddorp">LIJFSTIJL Centrum Hoofddorp</option>
+        <option value="LIJFSTIJL Coach Hoorn">LIJFSTIJL Coach Hoorn</option>
+      </select>
+    </form>
+  </div>
+  <div class="big-container">
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/260976647?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/1168802879?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/156188597?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/1842141076?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/1803557791?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/952190178?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="iframe-container">
+      <iframe src="https://virtuagym-embed.domo.com/embed/card/577811043?enable=title,summary,drill,filter,data_export" width="800" height="600" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </div>
+</body>
+<script>
+  (function() {
+    let ports = [];
+    const onPortMessage = e => {
+      console.log(e);
+    };
+  
+    // https://www.jsonrpc.org/specification
+  
+    window.addEventListener("message", e => {
+      console.log('received message', e);
+      // Check origin
+      if (!e.ports[0]) return;
+      const port = e.ports[0];
+      port.onmessage = onPortMessage;
+      ports.push(port);
+    });
+  
+    const applyFilters = (filters = []) =>
+      ports.forEach(port => port.postMessage({
+        id: "setFilters123",
+        jsonrpc: "2.0",
+        method: "/v1/filters/apply",
+        params: {
+          filters
+        }
+      })
+      )
+  
+    const superClubDropDown = document.querySelector("#superclubSelection");
+    superClubDropDown.addEventListener("change", function() {
+      switch (superClubDropDown.value) {
+        case "--":
+          break;
+        default:
+          applyFilters([
+            {
+              "column": "club_superclub_id",
+              "operator": "IN",
+              "values": [superClubDropDown.value]
+            }  
+          ]);
+      }
+    });
+
+    const subClubDropDown = document.querySelector("#subclubSelection");
+    subClubDropDown.addEventListener("change", function() {
+      switch (subClubDropDown.value) {
+        case "--":
+          applyFilters([
+            {
+              "column": "club_superclub_id",
+              "operator": "IN",
+              "values": [superClubDropDown.value]
+            }  
+          ]);
+          break;
+        default:
+          applyFilters([
+            {
+              "column": "club_name",
+              "operator": "IN",
+              "values": [subClubDropDown.value]
+            }  
+          ]);
+          break;
+      }
+    });
+  })();
+</script>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "jsapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "markdown-pdf": "^9.0.0"
+  }
+}

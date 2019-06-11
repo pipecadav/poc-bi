@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+
+<iframe src="https://virtuagym-embed.domo.com/embed/card/1545438960?enable=title,summary,filter" width="600" height="600"></iframe>
+<iframe src="https://virtuagym-embed.domo.com/embed/card/1217809272?enable=title,summary,filter" width="600" height="600"></iframe>
+
+<form id="filterform">
+  <input name="column" placeholder="column" />
+  <select name="operator">
+    <option>GREATER_THAN</option>
+    <option>GREAT_THAN_EQUALS_TO</option>
+    <option>LESS_THAN</option>
+    <option>LESS_THAN_EQUALS_TO</option>
+    <option>EQUALS</option>
+    <option>NOT_EQUALS</option>
+    <option>IN</option>
+    <option>NOT_IN</option>
+    <option>IS</option>
+  </select>
+  <input name="filterValue" placeholder="value" />
+  <button>Save</button>
+</form>
+<script>
+(function() {
+  let ports = [];
+  const onPortMessage = e => {
+    console.log(e);
+  };
+
+  // https://www.jsonrpc.org/specification
+
+  window.addEventListener("message", e => {
+    console.log('received message', e);
+    // Check origin
+    if (!e.ports[0]) return;
+    const port = e.ports[0];
+    port.onmessage = onPortMessage;
+    ports.push(port)
+  });
+
+  const applyFilters = (filters = []) =>
+    ports.forEach(port => port.postMessage({
+      id: "setFilters123",
+      jsonrpc: "2.0",
+      method: "/v1/filters/apply",
+      params: {
+        filters
+      }
+    })); 
+
+  const onSubmit = e => {
+    e.preventDefault();
+    // read the values off of the form inputs
+    const [column, operator, filterValue] = [...e.target].map(
+      element => element.value
+    );
+
+    // Apply a single filter to the embed
+    applyFilters([{ column, operator, values: [filterValue] }]);
+  };
+
+  const form = document.querySelector("#filterform");
+  form.addEventListener("submit", onSubmit);
+})();
+</script>

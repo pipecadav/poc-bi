@@ -1,0 +1,152 @@
+﻿body, nav, html, ul, li, span {
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  margin:0;
+}
+
+nav {
+  width: 100vw;
+  height:70px;
+  background-image: url(https://static.virtuagym.com/v29522/thumb/repeating_header_img/b226d0dbbb116969d0ecca18c069ee95c142.png);
+  background-position: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 111px;
+  padding-right: 100px;
+}
+
+.right{
+  width: 20%;
+  padding-left: 2.8rem;
+  display: flex;
+  align-items: center;
+}
+
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+img{
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
+}
+
+h1 {
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  padding: 0 .5em;
+  text-align: center;
+}
+
+.row{
+  display: flex;
+  flex-flow: row;
+  justify-content:space-around;
+  align-items: center;
+  height:40px;
+  padding-right:36rem;
+  border-top: 1px solid gray;
+  box-shadow: 2px 2px lightgray;
+}
+
+.filter-container{
+  display: flex;
+  flex-flow: row;
+  justify-content:space-around;
+  align-items: center;
+  height:40px;
+  padding-right:30rem;
+  padding-top: 1rem;
+}
+
+.checkbox-container{
+  display: flex;
+  flex-flow: row;
+  justify-content:space-around;
+  align-items: center;
+  height:40px;
+  padding-right:36rem;
+  padding-top: 1rem;
+}
+
+select {
+  margin: 1rem;
+  width: auto;
+  cursor: pointer;
+  padding: 5px 35px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 34px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+ li {
+  display: inline;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  line-height: 1em;
+}
+
+span{
+  padding: 11px 16px 11px;
+  height:inherit;
+  font-size: 13px;
+}
+
+span:hover {
+  background-color: #f5f5f5;
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+  cursor: pointer;
+}
+
+span:active{
+  background-color: #f5f5f5;
+}
+
+img:hover{
+  background-color:#257aab;
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+  cursor: pointer;
+}
+
+#one:hover{
+  padding-top: .9rem;
+  padding-bottom: .9rem;
+}
+
+#two:hover{
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+
+h1:hover{
+  background-color:#257aab;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.big-container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100vw;
+}
+
+.iframe-container {
+  padding-top: 55px;
+  padding-left: 60px;
+}
