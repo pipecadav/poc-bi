@@ -43,20 +43,6 @@
         <option value="7811">LIJFSTIJL Superclub</option>
       </select>
     </form>
-    <form>
-      <label for="subClub">Select Location: </label>
-      <select name="subClub" id="subclubSelection">
-        <option value="">--</option>
-        <!-- Add or change the subclubs to be queried -->
-        <!-- value should be equal to the name of the club -->
-        <!-- Add as many options as you want, just copy one option row and replace with your desired data-->
-        <option value="Bodytec Studio">Bodytec Studio</option>
-        <option value="Optimum Change">Optimum Change</option>
-        <option value="Source PT">Source PT</option>
-        <option value="LIJFSTIJL Centrum Hoofddorp">LIJFSTIJL Centrum Hoofddorp</option>
-        <option value="LIJFSTIJL Coach Hoorn">LIJFSTIJL Coach Hoorn</option>
-      </select>
-    </form>
   </div>
   <div class="big-container">
     <div class="iframe-container">
@@ -124,30 +110,6 @@
               "values": [superClubDropDown.value]
             }  
           ]);
-      }
-    });
-
-    const subClubDropDown = document.querySelector("#subclubSelection");
-    subClubDropDown.addEventListener("change", function() {
-      switch (subClubDropDown.value) {
-        case "--":
-          applyFilters([
-            {
-              "column": "club_superclub_id",
-              "operator": "IN",
-              "values": [superClubDropDown.value]
-            }  
-          ]);
-          break;
-        default:
-          applyFilters([
-            {
-              "column": "club_name",
-              "operator": "IN",
-              "values": [subClubDropDown.value]
-            }  
-          ]);
-          break;
       }
     });
   })();
